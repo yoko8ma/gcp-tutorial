@@ -31,6 +31,10 @@ activate py37
 ```
 ## パッケージのインストール
 ```
+pip install numpy
+pip install pandas
+pip install scikit-learn
+pip install matplotlib
 pip install xgboost
 ```
 ## Jupyter Notebookのインストールと起動
