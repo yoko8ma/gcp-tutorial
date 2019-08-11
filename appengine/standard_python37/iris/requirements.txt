@@ -1,0 +1,8 @@
+responder
+gunicorn
+uvicorn
+numpy
+scikit-learn
+setuptools ~= 41.0
+tensorflow
+keras
