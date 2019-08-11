@@ -1,12 +1,17 @@
 import logging
 import pickle
 import responder
-import numpy as np
 
-app = responder.API()
+api = responder.API()
 
-@app.route('/')
-def index(request, response):
+@api.route('/')
+def index(req, resp):
+    resp.html = api.template('index.html')
+
+@api.route('/api/v1/predict')
+def predict(req, resp):
+    import numpy as np
+
     # 予測データ
     sepal_length = request.params.get("sepal_length")
     sepal_width = request.params.get("sepal_width")
@@ -36,8 +41,8 @@ def index(request, response):
     # 予測
     y = model.predict(X, batch_size=1)
     logging.info(y)
-    response.headers.update({'Content-Type': 'application/json'})
-    response.media = {"label": int(y[0].argmax()), "accuracy": float(y[0].max())}
+    resp.headers.update({'Content-Type': 'application/json'})
+    resp.media = {"label": int(y[0].argmax()), "accuracy": float(y[0].max())}
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    api.run(host='127.0.0.1', port=8080, debug=True)
