@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Iris Prediction</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+$(function() {
+    $('#predictionForm').submit(function(event){
+        event.preventDefault();
+        var $form = $(this);
+        var $button = $form.find('button');
+
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: $form.serialize(),
+            dataType: 'json',
+            timeout: 10000,
+
+            // 二重送信防止
+            beforeSend: function(xhr, settings) {
+                $button.attr('disabled', true);
+            },
+
+            // ボタン有効化
+            complete: function(xhr, textStatus) {
+                $button.attr('disabled', false);
+            },
+        }).then(
+            function (data) {
+   				var data2 = JSON.stringify(data);
+                console.log(data2);
+     			$("#result").text(data["label"]);
+            },
+            function () {
+                alert("予測に失敗しました");
+            }
+        );
+    });
+});
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col">
+             <form class="form-horizontal" style="margin-top: 50px;" id="predictionForm" action="/api/v1/predict" method="get" >
+                <div class="form-group">
+                    <label>がく片の長さ (cm)</label>
+                    <input type="text" name="sepal_length" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>がく片の幅 (cm)</label>
+                    <input type="text" name="sepal_width" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>花びらの長さ (cm)</label>
+                    <input type="text" name="petal_length" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>花びらの幅 (cm)</label>
+                    <input type="text" name="petal_width" class="form-control">
+                </div>
+                <button type="submit" class="onSubmit">予測</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p class="text-success"><span id="result"></span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
