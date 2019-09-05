@@ -2,3 +2,4 @@ responder
 gunicorn
 uvicorn
 sklearn
+google-cloud-logging
