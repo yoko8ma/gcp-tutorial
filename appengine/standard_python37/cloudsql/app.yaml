@@ -1,0 +1,14 @@
+runtime: python37
+
+entrypoint: gunicorn --bind 0.0.0.0:$PORT -c gunicorn_conf.py main:app
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+
+env_variables:
+  CLOUD_SQL_CONNECTION_NAME:
+  DB_USER:
+  DB_PASS:
+  DB_NAME:
