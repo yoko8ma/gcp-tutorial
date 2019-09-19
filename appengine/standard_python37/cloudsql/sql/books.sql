@@ -1,0 +1,5 @@
+CREATE TABLE books(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    book_name VARCHAR(255) NOT NULL,
+    author_name VARCHAR(255) NOT NULL
+);
