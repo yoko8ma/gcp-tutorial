@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/yokoyama/Github/gcp-tutorial/mlops/mlflow/mlruns/0/e35920d37b0b4c41a7822cc1f5a486e7/artifacts
+end_time: 1581917544652
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+name: ''
+run_id: e35920d37b0b4c41a7822cc1f5a486e7
+run_uuid: e35920d37b0b4c41a7822cc1f5a486e7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1581917544484
+status: 3
+tags: []
+user_id: yokoyama
